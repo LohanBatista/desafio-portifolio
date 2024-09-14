@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 20px;
   padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
 }
 
 .feed-item {
@@ -68,15 +68,29 @@
 
 /* Common materia style */
 .feed-item.materia {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: flex-start;
   background-color: white;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 50%;
+}
+
+.feed-item.materia img {
+  border-radius: 8px;
+  margin-right: 15px;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .feed-item.materia h2 {
   font-size: 1.5em;
-  color: #333;
+  color: #d01716;
 }
 
 .feed-item.materia .label {

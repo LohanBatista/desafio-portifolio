@@ -90,11 +90,17 @@ function renderHighlightItem(item, index) {
 }
 function renderDefaultItem(item, index) {
   return `
+  
     <div class="feed-item materia" id="feed-item-${index}">
-      <div class="label">${item.section}</div>
-      <h2>${item.title}</h2>
+      ${
+        item.image
+          ? `<img class="" src="${item.image}" alt="${item.title}">`
+          : ""
+      }  
+      <div class="label">${item.section}
+        <h2>${item.title}</h2>
       <p>${item.summary}</p>
-      ${item.image ? `<img src="${item.image}" alt="${item.title}">` : ""}
+      </div>       
     </div>
   `;
 }
