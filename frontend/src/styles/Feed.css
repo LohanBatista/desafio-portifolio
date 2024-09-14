@@ -1,4 +1,4 @@
-/* Contêiner principal */
+
 .feed-container {
   display: flex;
   flex-direction: column;
@@ -6,69 +6,67 @@
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
-  max-width: 1200px; /* Reduzindo o max-width para dar mais espaço ao layout */
+  max-width: 1200px; 
   margin: 0 auto;
 }
 
-/* Contêiner para os destaques */
+
 .highlight-container {
   width: 100%;
   margin-bottom: 30px;
 }
 
-/* Grid container para materias e agrupadores */
 .grid-container {
   display: grid;
-  grid-template-columns: 65% 35%; /* Ajustei a proporção para 65%/35% */
-  gap: 20px; /* Reduzi o gap para evitar que os itens sejam empurrados */
+  grid-template-columns: 65% 35%; 
+  gap: 20px; 
   width: 100%;
   box-sizing: border-box;
 }
 
-/* Colunas do grid */
+
 .grid-column {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* Itens de materia */
 .materia-column .feed-item.materia {
   width: 92%;
   height: auto;
 }
 
-/* Itens de agrupador-materia */
+
 .agrupador-column .feed-item.agrupador-materia {
   width: 82%;
-  height: auto; /* Removi alturas fixas */
-  margin-left: 0; /* Removi margem esquerda */
+  height: auto; 
+  margin-left: 0; /
 }
 
-/* Estilos globais dos cards */
+
 .feed-item {
   background-color: white;
-  padding: 20px; /* Mantive o padding interno */
+  padding: 20px; 
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
 
-/* Imagens dentro dos cards */
+
 .feed-item img {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
 }
 
-/* Labels dentro dos cards */
+
 .label {
   font-size: 14px;
   color: red;
   font-weight: bold;
 }
 
-/* Estilos específicos para os cards de destaque sem imagem */
+
 .feed-item.highlight.no-image {
   background-color: white;
   color: black;
@@ -82,43 +80,43 @@
 .feed-item.highlight.no-image h1 {
   color: #d01716;
   font-weight: bold;
-  font-size: 36px; /* Reduzi o tamanho da fonte */
-  padding-right: 20px; /* Reduzi o padding para evitar corte */
+  font-size: 36px; 
+  padding-right: 20px;
 }
 .feed-item.highlight.no-image p {
   color: #333;
   font-weight: 600;
-  font-size: 18px; /* Reduzi o tamanho da fonte */
+  font-size: 18px; 
 }
 
-/* Cards de destaque com imagem de fundo */
+
 .feed-item.highlight {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   width: 100%;
-  height: auto; /* Removi a altura mínima */
+  height: auto; 
   color: white;
   background-size: cover;
   background-position: center;
-  padding: 20px; /* Ajustei o padding */
+  padding: 20px; 
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .feed-item.highlight h1 {
   color: white;
   font-weight: bold;
-  font-size: 36px; /* Reduzi o tamanho da fonte */
+  font-size: 36px; 
   padding-right: 20px;
 }
 .feed-item.highlight p {
   color: white;
   font-weight: 600;
-  font-size: 18px; /* Reduzi o tamanho da fonte */
+  font-size: 18px; 
 }
 
-/* Estilos comuns para os cards de matérias */
+
 .feed-item.materia {
   display: flex;
   flex-direction: row;
@@ -129,20 +127,20 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-  height: auto; /* Removi alturas fixas */
+  height: auto; 
 }
 
 .feed-item.materia img {
   border-radius: 8px;
   margin-right: 15px;
-  width: 150px; /* Reduzi o tamanho da imagem */
-  height: 150px; /* Reduzi o tamanho da imagem */
+  width: 150px; 
+  height: 150px; 
   object-fit: cover;
   object-position: center;
 }
 
 .feed-item.materia h2 {
-  font-size: 1.2em; /* Reduzi o tamanho da fonte */
+  font-size: 1.2em; 
   color: #d01716;
 }
 
@@ -152,7 +150,7 @@
   font-weight: bold;
 }
 
-/* Estilo para vídeos */
+
 .feed-item.video {
   background-color: white;
   padding: 20px;
@@ -165,15 +163,15 @@
   margin-top: 10px;
 }
 
-/* Estilos para os destaques em mobile */
+
 @media (max-width: 1023px) {
   .highlight-container {
-    flex-direction: column; /* Empilha os destaques verticalmente */
-    gap: 20px; /* Espaçamento entre os destaques no mobile */
+    flex-direction: column; 
+    gap: 20px; 
   }
 
   .feed-item.highlight {
-    width: 100%; /* Destaques ocupam 100% da largura no mobile */
-    margin-bottom: 20px; /* Adiciona espaço entre os destaques */
+    width: 100%; 
+    margin-bottom: 20px;
   }
 }
