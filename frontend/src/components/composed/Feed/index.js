@@ -17,28 +17,45 @@ function renderFeed(newsItems) {
   const feedContainer = document.getElementById("feed-container");
   feedContainer.innerHTML = "";
 
+  const highlightContainer = document.createElement("div");
+  highlightContainer.classList.add("highlight-container");
+
+  let nonHighlightItems = "";
+  let allItems = "";
+
   newsItems.forEach((item, index) => {
     let feedItem = "";
 
     switch (item.type) {
       case "agrupador-materia":
         feedItem = renderGroupOfSubjects(item);
+        allItems += feedItem;
         break;
       case "materia":
-        feedItem = renderSubjects(item, index);
+        if (isHighlight(index)) {
+          feedItem = renderSubjects(item, index);
+          highlightContainer.innerHTML += feedItem;
+        } else {
+          feedItem = renderSubjects(item, index);
+          nonHighlightItems += feedItem;
+        }
         break;
       default:
         console.error("Tipo de item desconhecido:", item.type);
     }
 
-    feedContainer.innerHTML += feedItem;
-
     if ((index + 1) % 8 === 0) {
       const adItem = renderAdItem();
-      feedContainer.innerHTML += adItem;
+      nonHighlightItems += adItem;
     }
   });
 
+  feedContainer.innerHTML += highlightContainer.outerHTML;
+
+  // Adiciona os itens não destacados (materia e agrupador-materia) ao feed
+  feedContainer.innerHTML += allItems + nonHighlightItems;
+
+  // Reatribui os eventos de clique para cada item
   newsItems.forEach((item, index) => {
     const element = document.getElementById(`feed-item-${index}`);
     if (element) {
@@ -48,6 +65,7 @@ function renderFeed(newsItems) {
 }
 
 function renderGroupOfSubjects(item) {
+  console.log("Renderizando agrupador-materia:", item);
   let groupContent = "";
   item.group.forEach((subItem) => {
     groupContent += `<li><a href="${subItem.content.url}">${subItem.content.title}</a></li>`;
@@ -82,7 +100,7 @@ function renderHighlightItem(item, index) {
   if (index === secondHighlightIndex) {
     return `
         <div class="feed-item highlight" style="background-image: url(${item.image}); background-size: cover; color: white; padding: 20px;" id="feed-item-${index}">
-          <h1 style="font-size: 2em; font-weight: bold;">${item.title}</h1>
+          <h1>${item.title}</h1>
           <p>${item.summary}</p>
         </div>
       `;
@@ -106,9 +124,9 @@ function renderDefaultItem(item, index) {
 }
 function renderAdItem() {
   return `
-      <div class="feed-item anuncio">
-        <div class="label">Anúncio</div>
-        <img src="https://picsum.photos/400/200" alt="Anúncio Publicitário">
+      <div class="feed-item materia">
+       <img src="https://picsum.photos/400/200" alt="Anúncio Publicitário">
+        <div class="label">Anúncio</div>       
       </div>
     `;
 }

@@ -9,6 +9,15 @@
   margin: 0;
 }
 
+.highlight-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
 .feed-item {
   background-color: white;
   padding: 15px;
@@ -30,9 +39,6 @@
 .feed-item.highlight.no-image {
   background-color: white;
   color: black;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .feed-item.highlight.no-image span {
@@ -49,21 +55,35 @@
 .feed-item.highlight.no-image p {
   color: #333;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 /* Highlight with background image */
 .feed-item.highlight {
-  position: relative;
-  background-color: black;
-  width: 528px;
-  height: 416px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 400px;
+  height: auto;
   color: white;
-  padding: 40px;
   background-size: cover;
   background-position: center;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.feed-item.highlight h1 {
+  color: white;
+  font-weight: bold;
+  font-size: 48px;
+  padding-right: 40px;
+}
+.feed-item.highlight p {
+  color: white;
+  font-weight: 600;
+  font-size: 24px;
 }
 
 /* Common materia style */
@@ -76,7 +96,7 @@
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 50%;
+  width: 60%;
 }
 
 .feed-item.materia img {

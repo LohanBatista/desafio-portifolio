@@ -5,13 +5,17 @@ body {
   background-color: #f4f4f4;
   width: 100vw;
   height: 100vh;
+  overflow-x: hidden;
 }
 
 .mainContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  width: 100vw;
+  padding: 0 40px 0 24px;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .modal {
@@ -60,6 +64,14 @@ body {
   .agrupador-materia.mobile-only {
     display: none;
   }
+
+  .highlight-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    height: 450px;
+  }
 }
 
 @media (max-width: 1023px) {
@@ -73,5 +85,14 @@ body {
 
   .feed-item {
     width: 100%;
+  }
+
+  .highlight-container {
+    flex-direction: column; /* Empilha os itens no mobile */
+  }
+
+  .feed-item.highlight {
+    width: 100%; /* Cada card ocupa 100% da largura no mobile */
+    height: auto; /* Altura ajustável */
   }
 }
