@@ -87,8 +87,12 @@ body {
     width: 100%;
   }
 
+  .grid-container {
+    grid-template-columns: 1fr; /* Em mobile, empilhamos as colunas */
+  }
+
   .highlight-container {
-    flex-direction: column; /* Empilha os itens no mobile */
+    margin-bottom: 20px;
   }
 
   .feed-item.highlight {

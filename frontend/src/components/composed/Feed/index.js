@@ -20,8 +20,11 @@ function renderFeed(newsItems) {
   const highlightContainer = document.createElement("div");
   highlightContainer.classList.add("highlight-container");
 
+  const gridContainer = document.createElement("div"); // Contêiner para grid layout
+  gridContainer.classList.add("grid-container");
+
   let nonHighlightItems = "";
-  let allItems = "";
+  let groupedItems = "";
 
   newsItems.forEach((item, index) => {
     let feedItem = "";
@@ -29,15 +32,15 @@ function renderFeed(newsItems) {
     switch (item.type) {
       case "agrupador-materia":
         feedItem = renderGroupOfSubjects(item);
-        allItems += feedItem;
+        groupedItems += feedItem; // Acumula agrupador-materia
         break;
       case "materia":
         if (isHighlight(index)) {
           feedItem = renderSubjects(item, index);
-          highlightContainer.innerHTML += feedItem;
+          highlightContainer.innerHTML += feedItem; // Adiciona os destaques ao contêiner de destaques
         } else {
           feedItem = renderSubjects(item, index);
-          nonHighlightItems += feedItem;
+          nonHighlightItems += feedItem; // Acumula os itens materia (não-destaque)
         }
         break;
       default:
@@ -46,14 +49,19 @@ function renderFeed(newsItems) {
 
     if ((index + 1) % 8 === 0) {
       const adItem = renderAdItem();
-      nonHighlightItems += adItem;
+      nonHighlightItems += adItem; // Acumula os anúncios a cada 8 itens
     }
   });
 
-  feedContainer.innerHTML += highlightContainer.outerHTML;
+  // Adiciona a estrutura em grid
+  gridContainer.innerHTML = `
+    <div class="grid-column materia-column">${nonHighlightItems}</div>
+    <div class="grid-column agrupador-column">${groupedItems}</div>
+  `;
 
-  // Adiciona os itens não destacados (materia e agrupador-materia) ao feed
-  feedContainer.innerHTML += allItems + nonHighlightItems;
+  // Primeiro adiciona os destaques, depois o grid com materias e agrupadores
+  feedContainer.innerHTML += highlightContainer.outerHTML;
+  feedContainer.appendChild(gridContainer); // Adiciona o grid ao contêiner principal
 
   // Reatribui os eventos de clique para cada item
   newsItems.forEach((item, index) => {
@@ -65,7 +73,6 @@ function renderFeed(newsItems) {
 }
 
 function renderGroupOfSubjects(item) {
-  console.log("Renderizando agrupador-materia:", item);
   let groupContent = "";
   item.group.forEach((subItem) => {
     groupContent += `<li><a href="${subItem.content.url}">${subItem.content.title}</a></li>`;
