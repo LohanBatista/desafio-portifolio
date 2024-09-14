@@ -10,6 +10,12 @@ async function fetchNews(page) {
   try {
     const response = await fetch(`http://localhost:3000/feed/page/${page}`);
     const newsData = await response.json();
+
+    if (newsData.length === 0) {
+      hideLoadMoreButton();
+      return;
+    }
+
     renderFeed(newsData, page);
   } catch (error) {
     console.error("Erro ao buscar as notícias:", error);
@@ -19,6 +25,13 @@ async function fetchNews(page) {
 function loadMoreNews() {
   currentPage++;
   fetchNews(currentPage);
+}
+
+function hideLoadMoreButton() {
+  const loadMoreButton = document.querySelector(".load-more-button");
+  if (loadMoreButton) {
+    loadMoreButton.style.display = "none";
+  }
 }
 
 function renderFeed(newsItems, page) {
@@ -31,12 +44,8 @@ function renderFeed(newsItems, page) {
   }
 
   const gridContainer = document.querySelector(".grid-container");
-  let nonHighlightItems = gridContainer
-    ? gridContainer.querySelector(".materia-column").innerHTML
-    : "";
-  let groupedItems = gridContainer
-    ? gridContainer.querySelector(".agrupador-column").innerHTML
-    : "";
+  let nonHighlightItems = "";
+  let groupedItems = "";
 
   newsItems.forEach((item, index) => {
     let feedItem = "";
@@ -75,8 +84,8 @@ function renderFeed(newsItems, page) {
     `;
     feedContainer.appendChild(newGridContainer);
   } else {
-    document.querySelector(".materia-column").innerHTML += nonHighlightItems;
-    document.querySelector(".agrupador-column").innerHTML += groupedItems;
+    document.querySelector(".materia-column").innerHTML += nonHighlightItems; // Only append new items
+    document.querySelector(".agrupador-column").innerHTML += groupedItems; // Only append new grouped items
   }
 
   newsItems.forEach((item, index) => {
