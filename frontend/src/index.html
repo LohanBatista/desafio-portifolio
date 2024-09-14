@@ -6,20 +6,19 @@
     <title>Feed de Notícias</title>
     <link rel="stylesheet" href="main.css" />
   </head>
+  <header>
+    <div id="header-container"></div>
+  </header>
   <body>
-    <header>
-      <div id="header-container" />
-    </header>
-    <div class="feed-container" id="feed-container" />
-
+    <div class="feed-container" id="feed-container"></div>
     <div id="videoModal" class="modal">
       <span class="close" onclick="closeVideoModal()">&times;</span>
-      <video id="videoPlayer" controls>
+      <video id="videoPlayer" controls autoplay>
         <source src="" type="video/mp4" />
       </video>
     </div>
 
-    <script src="scripts/main.js"></script>
-    <script src="components/Header/index.js"></script>
+    <script src="components/unit/Header/index.js"></script>
+    <script src="components//composed/Feed/index.js"></script>
   </body>
 </html>

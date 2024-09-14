@@ -12,36 +12,34 @@ function renderFeed(newsItems) {
   const feedContainer = document.getElementById("feed-container");
   feedContainer.innerHTML = "";
 
-  console.log(newsItems[0].video.source);
-
   newsItems.forEach((item, index) => {
     let feedItem = "";
 
     if (item.type === "materia") {
       feedItem = `
-                <div class="feed-item materia" onclick="window.location.href='${
-                  item.url
-                }'">
-                    <div class="label">${item.section}</div>
-                    <h2>${item.title}</h2>
-                    <p>${item.summary}</p>
-                    ${
-                      item.image
-                        ? `<img src="${item.image}" alt="${item.title}">`
-                        : ""
-                    }
-                </div>
-            `;
+                  <div class="feed-item materia" onclick="window.location.href='${
+                    item.url
+                  }'">
+                      <div class="label">${item.section}</div>
+                      <h2>${item.title}</h2>
+                      <p>${item.summary}</p>
+                      ${
+                        item.image
+                          ? `<img src="${item.image}" alt="${item.title}">`
+                          : ""
+                      }
+                  </div>
+              `;
     }
 
     if (item.video) {
       feedItem = `
-                <div class="feed-item video" onclick="openVideoModal('${item.video.source}')">
-                    <h2>${item.title}</h2>
-                    <p>${item.summary}</p>
-                    <img src="${item.image}" alt="Thumbnail do vídeo">
-                </div>
-            `;
+                  <div class="feed-item video" onclick="openVideoModal('${item.video.source}')">
+                      <h2>${item.title}</h2>
+                      <p>${item.summary}</p>
+                      <img src="${item.image}" alt="Thumbnail do vídeo">
+                  </div>
+              `;
     }
 
     if (item.type === "agrupador-materia") {
@@ -51,12 +49,12 @@ function renderFeed(newsItems) {
       });
 
       feedItem = `
-                <div class="feed-item agrupador-materia">
-                    <div class="header">${item.header}</div>
-                    <ul>${groupContent}</ul>
-                    <div class="footer"><a href="${item.footer.url}">${item.footer.label}</a></div>
-                </div>
-            `;
+                  <div class="feed-item agrupador-materia">
+                      <div class="header">${item.header}</div>
+                      <ul>${groupContent}</ul>
+                      <div class="footer"><a href="${item.footer.url}">${item.footer.label}</a></div>
+                  </div>
+              `;
     }
 
     // Inserir o item no feed
@@ -65,11 +63,11 @@ function renderFeed(newsItems) {
     // Adicionar anúncio a cada 8 posts
     if ((index + 1) % 8 === 0) {
       const adItem = `
-                <div class="feed-item anuncio">
-                    <div class="label">Anúncio</div>
-                    <img src="https://picsum.photos/400/200" alt="Anúncio Publicitário">
-                </div>
-            `;
+                  <div class="feed-item anuncio">
+                      <div class="label">Anúncio</div>
+                      <img src="https://picsum.photos/400/200" alt="Anúncio Publicitário">
+                  </div>
+              `;
       feedContainer.innerHTML += adItem;
     }
   });

@@ -3,7 +3,7 @@ function renderHeader() {
   header.innerHTML = `
         <div class="header-container">
             <div class="logo">
-                <img src="./assets/images/Logo.svg" alt="Site Logo">
+                <img class="logoImg" src="./assets/images/Logo.svg" alt="Site Logo">
             </div>
         </div>
     `;
