@@ -1,66 +1,8 @@
-/* COMPONENT STYLES ---- */
-
-/* HEADER STYLES */
-header {
-  background-color: #d01716;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  width: 100%;
-}
-
-.header-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.logoImg {
-  height: 45px;
-  width: 45px;
-}
-/* -------------- */
-
-/* ------------------- */
-
-/* MAIN STYLES */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f4f4;
-}
-
-.feed-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.feed-item {
-  background-color: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.feed-item img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.label {
-  font-size: 14px;
-  color: red;
-  font-weight: bold;
 }
 
 .modal {

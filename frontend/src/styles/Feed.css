@@ -1,0 +1,99 @@
+.feed-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feed-item {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feed-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.label {
+  font-size: 14px;
+  color: red;
+  font-weight: bold;
+}
+.feed-item.highlight.no-image {
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feed-item.highlight.no-image span {
+  font-size: 1em;
+  color: #666;
+  font-weight: 600;
+}
+.feed-item.highlight.no-image h1 {
+  color: #d01716;
+  font-weight: bold;
+  font-size: 48px;
+  padding-right: 40px;
+}
+.feed-item.highlight.no-image p {
+  color: #333;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Highlight with background image */
+.feed-item.highlight {
+  position: relative;
+  background-color: black;
+  width: 528px;
+  height: 416px;
+  color: white;
+  padding: 40px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Common materia style */
+.feed-item.materia {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feed-item.materia h2 {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.feed-item.materia .label {
+  font-size: 14px;
+  color: #d01716;
+  font-weight: bold;
+}
+
+/* Common video style */
+.feed-item.video {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feed-item.video img {
+  border-radius: 8px;
+  margin-top: 10px;
+}

@@ -1,0 +1,20 @@
+header {
+  background-color: #d01716;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  width: 100%;
+}
+
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.logoImg {
+  height: 45px;
+  width: 45px;
+}
