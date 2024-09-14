@@ -175,3 +175,23 @@
     margin-bottom: 20px;
   }
 }
+
+
+.load-more-button {
+  background-color: #C1121F;
+  color: white;             
+  padding: 15px 40px;        
+  font-size: 16px;           
+  border: none;              
+  border-radius: 8px;        
+  text-align: center;        
+  cursor: pointer;           
+  display: block;            
+  margin: 20px auto;         
+  width: 100%;               
+  max-width: 400px;          
+}
+
+.load-more-button:hover {
+  background-color: #A1101B; 
+}

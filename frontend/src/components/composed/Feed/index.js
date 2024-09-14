@@ -1,30 +1,42 @@
+const INITIAL_PAGE = 1;
+const ITEMS_PER_AD = 8;
+const FIRST_HIGHLIGHT_INDEX = 0;
+const SECOND_HIGHLIGHT_INDEX = 1;
+
+let currentPage = INITIAL_PAGE;
+let hasHighlighted = false;
+
 async function fetchNews(page) {
   try {
     const response = await fetch(`http://localhost:3000/feed/page/${page}`);
     const newsData = await response.json();
-    renderFeed(newsData);
+    renderFeed(newsData, page);
   } catch (error) {
     console.error("Erro ao buscar as notícias:", error);
   }
 }
 
-const firstHighlightIndex = 0;
-const secondHighlightIndex = 1;
-const isHighlight = (index) =>
-  index === firstHighlightIndex || index === secondHighlightIndex;
+function loadMoreNews() {
+  currentPage++;
+  fetchNews(currentPage);
+}
 
-function renderFeed(newsItems) {
+function renderFeed(newsItems, page) {
   const feedContainer = document.getElementById("feed-container");
-  feedContainer.innerHTML = "";
 
-  const highlightContainer = document.createElement("div");
-  highlightContainer.classList.add("highlight-container");
+  const highlightContainer =
+    page === INITIAL_PAGE ? document.createElement("div") : null;
+  if (highlightContainer) {
+    highlightContainer.classList.add("highlight-container");
+  }
 
-  const gridContainer = document.createElement("div"); // Contêiner para grid layout
-  gridContainer.classList.add("grid-container");
-
-  let nonHighlightItems = "";
-  let groupedItems = "";
+  const gridContainer = document.querySelector(".grid-container");
+  let nonHighlightItems = gridContainer
+    ? gridContainer.querySelector(".materia-column").innerHTML
+    : "";
+  let groupedItems = gridContainer
+    ? gridContainer.querySelector(".agrupador-column").innerHTML
+    : "";
 
   newsItems.forEach((item, index) => {
     let feedItem = "";
@@ -32,44 +44,51 @@ function renderFeed(newsItems) {
     switch (item.type) {
       case "agrupador-materia":
         feedItem = renderGroupOfSubjects(item);
-        groupedItems += feedItem; // Acumula agrupador-materia
+        groupedItems += feedItem;
         break;
       case "materia":
-        if (isHighlight(index)) {
+        if (page === INITIAL_PAGE && isHighlight(index)) {
           feedItem = renderSubjects(item, index);
-          highlightContainer.innerHTML += feedItem; // Adiciona os destaques ao contêiner de destaques
+          highlightContainer.innerHTML += feedItem;
         } else {
-          feedItem = renderSubjects(item, index);
-          nonHighlightItems += feedItem; // Acumula os itens materia (não-destaque)
+          feedItem = renderDefaultItem(item, index);
+          nonHighlightItems += feedItem;
         }
         break;
       default:
         console.error("Tipo de item desconhecido:", item.type);
     }
 
-    if ((index + 1) % 8 === 0) {
+    if ((index + 1) % ITEMS_PER_AD === 0) {
       const adItem = renderAdItem();
-      nonHighlightItems += adItem; // Acumula os anúncios a cada 8 itens
+      nonHighlightItems += adItem;
     }
   });
 
-  // Adiciona a estrutura em grid
-  gridContainer.innerHTML = `
-    <div class="grid-column materia-column">${nonHighlightItems}</div>
-    <div class="grid-column agrupador-column">${groupedItems}</div>
-  `;
+  if (page === INITIAL_PAGE) {
+    feedContainer.innerHTML = highlightContainer.outerHTML;
+    const newGridContainer = document.createElement("div");
+    newGridContainer.classList.add("grid-container");
+    newGridContainer.innerHTML = `
+      <div class="grid-column materia-column">${nonHighlightItems}</div>
+      <div class="grid-column agrupador-column">${groupedItems}</div>
+    `;
+    feedContainer.appendChild(newGridContainer);
+  } else {
+    document.querySelector(".materia-column").innerHTML += nonHighlightItems;
+    document.querySelector(".agrupador-column").innerHTML += groupedItems;
+  }
 
-  // Primeiro adiciona os destaques, depois o grid com materias e agrupadores
-  feedContainer.innerHTML += highlightContainer.outerHTML;
-  feedContainer.appendChild(gridContainer); // Adiciona o grid ao contêiner principal
-
-  // Reatribui os eventos de clique para cada item
   newsItems.forEach((item, index) => {
     const element = document.getElementById(`feed-item-${index}`);
     if (element) {
       element.addEventListener("click", () => handleClick(item));
     }
   });
+}
+
+function isHighlight(index) {
+  return index === FIRST_HIGHLIGHT_INDEX || index === SECOND_HIGHLIGHT_INDEX;
 }
 
 function renderGroupOfSubjects(item) {
@@ -96,7 +115,7 @@ function renderSubjects(item, index) {
 }
 
 function renderHighlightItem(item, index) {
-  if (index === firstHighlightIndex) {
+  if (index === FIRST_HIGHLIGHT_INDEX) {
     return ` <div class="feed-item highlight no-image" id="feed-item-${index}">
         <span class="feed-item.highlight.no-image-label">${item.section}</span>
         <h1>${item.title}</h1>
@@ -104,7 +123,7 @@ function renderHighlightItem(item, index) {
       </div>`;
   }
 
-  if (index === secondHighlightIndex) {
+  if (index === SECOND_HIGHLIGHT_INDEX) {
     return `
         <div class="feed-item highlight" style="background-image: url(${item.image}); background-size: cover; color: white; padding: 20px;" id="feed-item-${index}">
           <h1>${item.title}</h1>
@@ -113,9 +132,9 @@ function renderHighlightItem(item, index) {
       `;
   }
 }
+
 function renderDefaultItem(item, index) {
   return `
-  
     <div class="feed-item materia" id="feed-item-${index}">
       ${
         item.image
@@ -129,6 +148,7 @@ function renderDefaultItem(item, index) {
     </div>
   `;
 }
+
 function renderAdItem() {
   return `
       <div class="feed-item materia">
@@ -137,6 +157,7 @@ function renderAdItem() {
       </div>
     `;
 }
+
 function handleClick(item) {
   if (item.video) {
     openVideoModal(item.video.source);
@@ -144,18 +165,19 @@ function handleClick(item) {
   }
   window.location.href = item.url;
 }
+
 function openVideoModal(videoUrl) {
   const modal = document.getElementById("videoModal");
   const videoPlayer = document.getElementById("videoPlayer");
 
   if (videoPlayer) {
     videoPlayer.src = videoUrl;
-
     modal.style.display = "flex";
   } else {
     console.error("Video player element not found");
   }
 }
+
 function closeVideoModal() {
   const modal = document.getElementById("videoModal");
   const videoPlayer = document.getElementById("videoPlayer");
@@ -167,6 +189,12 @@ function closeVideoModal() {
   modal.style.display = "none";
 }
 
+const loadMoreButton = document.createElement("button");
+loadMoreButton.textContent = "Ver Mais";
+loadMoreButton.classList.add("load-more-button");
+loadMoreButton.addEventListener("click", loadMoreNews);
+document.body.appendChild(loadMoreButton);
+
 document.addEventListener("DOMContentLoaded", function () {
-  fetchNews(1);
+  fetchNews(currentPage);
 });
