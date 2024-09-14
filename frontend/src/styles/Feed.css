@@ -165,13 +165,15 @@
   margin-top: 10px;
 }
 
-/* Responsividade para telas menores */
+/* Estilos para os destaques em mobile */
 @media (max-width: 1023px) {
-  .grid-container {
-    grid-template-columns: 1fr; /* Em mobile, os itens são empilhados */
+  .highlight-container {
+    flex-direction: column; /* Empilha os destaques verticalmente */
+    gap: 20px; /* Espaçamento entre os destaques no mobile */
   }
 
-  .feed-item.materia {
-    width: 100%; /* Em mobile, o item ocupa 100% */
+  .feed-item.highlight {
+    width: 100%; /* Destaques ocupam 100% da largura no mobile */
+    margin-bottom: 20px; /* Adiciona espaço entre os destaques */
   }
 }
