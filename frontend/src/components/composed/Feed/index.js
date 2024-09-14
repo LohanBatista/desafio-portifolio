@@ -84,8 +84,8 @@ function renderFeed(newsItems, page) {
     `;
     feedContainer.appendChild(newGridContainer);
   } else {
-    document.querySelector(".materia-column").innerHTML += nonHighlightItems; // Only append new items
-    document.querySelector(".agrupador-column").innerHTML += groupedItems; // Only append new grouped items
+    document.querySelector(".materia-column").innerHTML += nonHighlightItems;
+    document.querySelector(".agrupador-column").innerHTML += groupedItems;
   }
 
   newsItems.forEach((item, index) => {
@@ -204,6 +204,114 @@ loadMoreButton.classList.add("load-more-button");
 loadMoreButton.addEventListener("click", loadMoreNews);
 document.body.appendChild(loadMoreButton);
 
+// TESTS
+function assert(condition, description) {
+  if (condition) {
+    console.log(`✅ ${description}`);
+  } else {
+    console.error(`❌ ${description}`);
+  }
+}
+
+function testarIsHighlight() {
+  assert(isHighlight(0) === true, "Índice 0 deve ser destaque");
+
+  assert(isHighlight(1) === true, "Índice 1 deve ser destaque");
+
+  assert(isHighlight(2) === false, "Índice 2 não deve ser destaque");
+}
+
+async function testarFetchNews() {
+  const fetchMock = {
+    calls: [],
+    fetch: async (url) => {
+      fetchMock.calls.push([url]);
+      return {
+        json: async () => [{ title: "Notícia Teste", type: "materia" }],
+      };
+    },
+  };
+
+  window.fetch = fetchMock.fetch;
+
+  await fetchNews(1);
+
+  assert(fetchMock.calls.length === 1, "Fetch foi chamado uma vez");
+  assert(
+    fetchMock.calls[0][0] === "http://localhost:3000/feed/page/1",
+    "URL correta para o fetch"
+  );
+
+  fetchMock.calls = [];
+}
+
+function testarRenderDefaultItem() {
+  const testItem = {
+    image: "https://example.com/image.jpg",
+    title: "Notícia de Teste",
+    section: "Tecnologia",
+    summary: "Resumo da notícia de teste",
+  };
+
+  const renderedItem = renderDefaultItem(testItem, 0);
+
+  assert(
+    renderedItem.includes("https://example.com/image.jpg"),
+    "Renderização contém a imagem correta"
+  );
+  assert(
+    renderedItem.includes("Notícia de Teste"),
+    "Renderização contém o título correto"
+  );
+  assert(
+    renderedItem.includes("Tecnologia"),
+    "Renderização contém a seção correta"
+  );
+}
+
+function testarRenderDefaultItem() {
+  const testItem = {
+    image: "https://example.com/image.jpg",
+    title: "Notícia de Teste",
+    section: "Tecnologia",
+    summary: "Resumo da notícia de teste",
+  };
+
+  const renderedItem = renderDefaultItem(testItem, 0);
+
+  assert(
+    renderedItem.includes("https://example.com/image.jpg"),
+    "Renderização contém a imagem correta"
+  );
+  assert(
+    renderedItem.includes("Notícia de Teste"),
+    "Renderização contém o título correto"
+  );
+  assert(
+    renderedItem.includes("Tecnologia"),
+    "Renderização contém a seção correta"
+  );
+}
+
+function testarRenderAdItem() {
+  const adItem = renderAdItem();
+
+  assert(
+    adItem.includes("Anúncio Publicitário"),
+    "Renderiza corretamente o anúncio"
+  );
+  assert(
+    adItem.includes("https://picsum.photos/400/200"),
+    "Contém a imagem correta do anúncio"
+  );
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   fetchNews(currentPage);
+
+  // Executando testes unitários
+  testarIsHighlight();
+  testarFetchNews();
+  testarRenderDefaultItem();
+  testarRenderAdItem();
 });
