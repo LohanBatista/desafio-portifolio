@@ -1,3 +1,25 @@
+/* HEADER STYLES  */
+header {
+  background-color: #d01716;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  height: 40px;
+}
+
+/* BODY STYLES */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
