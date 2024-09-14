@@ -309,9 +309,9 @@ function testarRenderAdItem() {
 document.addEventListener("DOMContentLoaded", function () {
   fetchNews(currentPage);
 
-  // Executando testes unitários
-  testarIsHighlight();
-  testarFetchNews();
-  testarRenderDefaultItem();
-  testarRenderAdItem();
+  // Executando testes unitários - descomentar para executar
+  // testarIsHighlight();
+  // testarFetchNews();
+  // testarRenderDefaultItem();
+  // testarRenderAdItem();
 });
